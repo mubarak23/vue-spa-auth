@@ -2,15 +2,16 @@
   <div id="signup">
     <div class="signup-form">
       <form @submit.prevent="onSubmit">
-        <div class="input">
+        <div class="input" :class="{invalid: $v.email.$error}">
           <label for="email">Mail</label>
           <input
                   type="email"
                   id="email"
-                  @input="$v.email.$touch()"
+                  @blur="$v.email.$touch()"
                   v-model="email">
+                  <p v-if="$v.email.$error">Please Provide a Valid Email Address</p>
         </div>
-        <div>{{ $v }}</div>
+        
         <div class="input">
           <label for="age">Your Age</label>
           <input
@@ -164,6 +165,15 @@ import { required, email} from 'vuelidate/lib/validators'
   .input select {
     border: 1px solid #ccc;
     font: inherit;
+  }
+
+  .input.invalid input {
+  border: 1px solid red;
+  background-color: #ffc9aa;
+  }
+
+  .input.invalid label {
+    color: red
   }
 
   .hobbies button {
