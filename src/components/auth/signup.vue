@@ -7,8 +7,10 @@
           <input
                   type="email"
                   id="email"
+                  @input="$v.email.$touch()"
                   v-model="email">
         </div>
+        <div>{{ $v }}</div>
         <div class="input">
           <label for="age">Your Age</label>
           <input
@@ -70,6 +72,7 @@
 
 <script>
 import axios from 'axios'
+import { required, email} from 'vuelidate/lib/validators'
   export default {
     data () {
       return {
@@ -80,6 +83,12 @@ import axios from 'axios'
         country: 'usa',
         hobbyInputs: [],
         terms: false
+      }
+    },
+    validations: {
+      email:{
+        required: required,
+        email: email
       }
     },
     methods: {
